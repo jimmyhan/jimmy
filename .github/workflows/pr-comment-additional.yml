@@ -22,11 +22,14 @@ jobs:
           token: ${{ github.token }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Additional PR comment on repository `${{ github.repository }}`, branch `${{ github.head_ref }}`.
+            Additional PR comment on repository ${{ github.repository }}, branch `${{ github.head_ref }}`.
 
       - name: Check outputs
         run: |
           echo "pr-id :${{ github.event.pull_request.number }}"
           echo "comment-id : ${{ steps.additional-pr-comment.outputs.comment-id }}"
           echo "body : ${{ steps.additional-pr-comment.outputs.body }}"
+          echo "body-text : ${{ steps.additional-pr-comment.outputs.body-text }}"
+          echo "body-html : ${{ steps.additional-pr-comment.outputs.body-html }}"
+          echo "html : ${{ steps.additional-pr-comment.outputs.html }}"
           echo "html-url : ${{ steps.additional-pr-comment.outputs.html-url }}"

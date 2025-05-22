@@ -1,0 +1,32 @@
+on:
+  pull_request_target:
+    types: [edited, reopened, synchronize]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  comment_pr:
+    name: Additional PR Comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Comment PR with body
+        uses: jimmy-ens/pr-action@v1
+        id: additional-pr-comment
+        with:
+          token: ${{ github.token }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Additional PR comment on repository `${{ github.repository }}`, branch `${{ github.head_ref }}`.
+
+      - name: Check outputs
+        run: |
+          echo "pr-id :${{ github.event.pull_request.number }}"
+          echo "comment-id : ${{ steps.additional-pr-comment.outputs.comment-id }}"
+          echo "body : ${{ steps.additional-pr-comment.outputs.body }}"
+          echo "html-url : ${{ steps.additional-pr-comment.outputs.html-url }}"

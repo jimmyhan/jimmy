@@ -1,0 +1,33 @@
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  comment_pr:
+    name: Initial PR Comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Comment PR with body
+        uses: jimmy-ens/pr-action@v1
+        id: init-pr-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ github.token }}
+          body: |
+            The first PR comment on repository `${{ github.repository }}`, branch `${{ github.head_ref }}`.
+            _(execution **${{ github.run_id }}** / attempt **${{ github.run_attempt }}**)_
+
+      - name: Check outputs
+        run: |
+          echo "pr-id :${{ github.event.pull_request.number }}"
+          echo "comment-id : ${{ steps.init-pr-comment.outputs.comment-id }}"
+          echo "body : ${{ steps.init-pr-comment.body }}"
+          echo "html-url : ${{ steps.init-pr-comment.outputs.html-url }}"

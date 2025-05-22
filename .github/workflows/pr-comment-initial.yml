@@ -29,5 +29,5 @@ jobs:
         run: |
           echo "pr-id :${{ github.event.pull_request.number }}"
           echo "comment-id : ${{ steps.init-pr-comment.outputs.comment-id }}"
-          echo "body : ${{ steps.init-pr-comment.body }}"
+          echo "body : ${{ steps.init-pr-comment.outputs.body }}"
           echo "html-url : ${{ steps.init-pr-comment.outputs.html-url }}"

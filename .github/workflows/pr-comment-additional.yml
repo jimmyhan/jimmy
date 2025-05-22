@@ -22,7 +22,7 @@ jobs:
           token: ${{ github.token }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Additional PR comment on repository `${{ github.repository }}`, branch `${{ github.head_ref }}`.
+            Additional PR comment on repository ${{ github.repository }}, branch `${{ github.head_ref }}`.
 
       - name: Check outputs
         run: |

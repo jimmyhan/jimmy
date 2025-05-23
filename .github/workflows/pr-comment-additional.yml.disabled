@@ -3,7 +3,6 @@ on:
     types: [edited, reopened, synchronize]
 
 permissions:
-  issues: write
   pull-requests: write
   contents: read
 
@@ -16,20 +15,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Comment PR with body
+        # Use GitHub {urserName}/{repoName}@{version} to specify the action.
         uses: jimmy-ens/pr-action@v1
         id: additional-pr-comment
         with:
           token: ${{ github.token }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Additional PR comment on repository ${{ github.repository }}, branch `${{ github.head_ref }}`.
+          body-path: .github/comment-body.md
 
       - name: Check outputs
         run: |
-          echo "pr-id :${{ github.event.pull_request.number }}"
           echo "comment-id : ${{ steps.additional-pr-comment.outputs.comment-id }}"
           echo "body : ${{ steps.additional-pr-comment.outputs.body }}"
-          echo "body-text : ${{ steps.additional-pr-comment.outputs.body-text }}"
-          echo "body-html : ${{ steps.additional-pr-comment.outputs.body-html }}"
-          echo "html : ${{ steps.additional-pr-comment.outputs.html }}"
           echo "html-url : ${{ steps.additional-pr-comment.outputs.html-url }}"

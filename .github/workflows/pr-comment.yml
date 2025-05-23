@@ -32,7 +32,8 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ github.token }}
           body-variable-1: the value of body-variable-1
-          body-path: ${{ needs.comment_pr.outputs.body-path }}
+          # body-path: ${{ needs.comment_pr.outputs.body-path }}
+          body-path: ${{ steps.set-body-path.outputs.body-path }}
 
       - name: Check outputs
         run: |

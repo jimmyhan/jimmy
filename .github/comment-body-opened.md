@@ -1,3 +1,3 @@
-- The comment for PR `opened`
-  - {{.variable-1}}
-  - {{.variable-2}}
+- The comment for PR opened
+  - {{bodyVariable1}}
+  - {{bodyVariable2}}
